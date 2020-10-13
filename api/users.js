@@ -46,4 +46,28 @@ router.put('/:id', async (req, res, next) => {
 	}
 });
 
+//create a new user
+router.post('/', async (req, res, next) => {
+	try {
+		const newUser = await User.create(req.body);
+		res.json(newUser);
+	} catch (err) {
+		next(err);
+	}
+});
+
+//delete a user
+router.delete('/:id', async (req, res, next) => {
+	try {
+		await User.destroy({
+			where: {
+				id: req.params.id,
+			},
+		});
+		res.sendStatus(204);
+	} catch (err) {
+		next(err);
+	}
+});
+
 module.exports = router;

@@ -28,11 +28,35 @@ router.get('/:id', async (req, res, next) => {
 });
 
 //update one dog
-router.get('/:id', async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
 	try {
 		const dog = await Dog.findByPk(req.params.id);
 		const updatedDog = await dog.update(req.body);
 		res.json(updatedDog);
+	} catch (err) {
+		next(err);
+	}
+});
+
+//create a dog
+router.post('/', async (req, res, next) => {
+	try {
+		const newDog = await Dog.create(req.body);
+		res.json(newDog);
+	} catch (err) {
+		next(err);
+	}
+});
+
+//delete a dog
+router.delete('/:id', async (req, res, next) => {
+	try {
+		await Dog.destroy({
+			where: {
+				id: req.params.id,
+			},
+		});
+		res.sendStatus(204);
 	} catch (err) {
 		next(err);
 	}

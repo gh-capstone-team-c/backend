@@ -35,18 +35,12 @@ const seed = async () => {
 			name: 'Hobbes',
 		});
 
+		//dog associated to user
 		await betsy.setDog(kody);
 		await marie.setDog(hobbes);
 		await leslie.setDog(arya);
 
-		// await betsy.setPet(kody);
-		// await marie.setPet(hobbes);
-		// await leslie.setPet(arya);
-
-		// await kody.setUser(betsy);
-		// await hobbes.setUser(marie);
-		// await arya.setUser(leslie);
-
+		//added followers
 		await leslie.addFollower(marie);
 		await marie.addFollower(betsy);
 		// console.log(Object.keys(betsy.__proto__));
