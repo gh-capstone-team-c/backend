@@ -7,8 +7,7 @@ const Dog = require('./dog');
 //associations
 Dog.belongsTo(User);
 User.hasOne(Dog);
-//might need to add more here if we're doing friend requests/accepts stuff
-// User.belongsToMany(User, { as: 'friend', through: 'friendly' });
+//set it up like twitter where you can have followers and you can follow people
 User.belongsToMany(User, {
 	as: 'follower',
 	through: 'followers',

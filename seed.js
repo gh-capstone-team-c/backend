@@ -35,13 +35,21 @@ const seed = async () => {
 			name: 'Hobbes',
 		});
 
-		await kody.setUser(betsy);
-		await hobbes.setUser(marie);
-		await arya.setUser(leslie);
+		await betsy.setDog(kody);
+		await marie.setDog(hobbes);
+		await leslie.setDog(arya);
+
+		// await betsy.setPet(kody);
+		// await marie.setPet(hobbes);
+		// await leslie.setPet(arya);
+
+		// await kody.setUser(betsy);
+		// await hobbes.setUser(marie);
+		// await arya.setUser(leslie);
 
 		await leslie.addFollower(marie);
 		await marie.addFollower(betsy);
-		// console.log(Object.keys(leslie.__proto__));
+		// console.log(Object.keys(betsy.__proto__));
 	} catch (err) {
 		console.log(err);
 	}
