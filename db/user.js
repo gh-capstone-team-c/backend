@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const Sequelize = require('sequelize');
 const db = require('./db');
 
+//still need to add photos for a gallery
 const User = db.define('user', {
 	email: {
 		type: Sequelize.STRING,

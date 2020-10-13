@@ -3,6 +3,9 @@
 const router = require('express').Router();
 const { User, Dog } = require('../db');
 
+//need to write admin middleware to protect routes
+//and create admin...
+
 //get all users
 router.get('/', async (req, res, next) => {
 	try {
@@ -12,6 +15,7 @@ router.get('/', async (req, res, next) => {
 					model: Dog,
 				},
 			],
+			//attributes: ["id", "email", "points", "imageUrl"] <<so you don't send the passwords
 		});
 		res.json(users);
 	} catch (err) {
@@ -35,7 +39,7 @@ router.get('/:id', async (req, res, next) => {
 	}
 });
 
-//update user
+//update user--this would be for an admin to update a user's settings--we might not need this since i also wrote a route for the user to update their own settings
 router.put('/:id', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.params.id);
