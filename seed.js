@@ -1,7 +1,6 @@
 /** @format */
 
-const db = require('./db/db');
-const User = require("./db/user")
+const { db, User, Dog } = require('./db');
 
 const seed = async () => {
 	try {
@@ -10,8 +9,39 @@ const seed = async () => {
 		// seed your database here!
 
 		const betsy = await User.create({
-			email: 'grotoned@gmail.com',
+			email: 'betsy@email.com',
+			password: '123',
 		});
+
+		const leslie = await User.create({
+			email: 'leslie@email.com',
+			password: '456',
+		});
+
+		const marie = await User.create({
+			email: 'marie@email.com',
+			password: '789',
+		});
+
+		const kody = await Dog.create({
+			name: 'Kody-boo',
+		});
+
+		const arya = await Dog.create({
+			name: 'Arya',
+		});
+
+		const hobbes = await Dog.create({
+			name: 'Hobbes',
+		});
+
+		await kody.setUser(betsy);
+		await hobbes.setUser(marie);
+		await arya.setUser(leslie);
+
+		await leslie.addFollower(marie);
+		await marie.addFollower(betsy);
+		// console.log(Object.keys(leslie.__proto__));
 	} catch (err) {
 		console.log(err);
 	}
