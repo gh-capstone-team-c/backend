@@ -22,23 +22,42 @@ router.get('/me', async (req, res, next) => {
 });
 
 //login
-router.put('/login', async (req, res, next) => {
+// router.put('/login', async (req, res, next) => {
+// 	try {
+// 		const user = await User.findOne({
+// 			where: {
+// 				email: req.body.email,
+// 				password: req.body.password,
+// 			},
+// 		});
+// 		if (!user) {
+// 			res.sendStatus(401);
+// 		} else {
+// 			// attach user id to the session
+// 			req.session.userId = user.id;
+// 			res.json(user);
+// 		}
+// 	} catch (error) {
+// 		next(error);
+// 	}
+// });
+
+router.post('/login', async (req, res, next) => {
 	try {
 		const user = await User.findOne({
-			where: {
-				email: req.body.email,
-				password: req.body.password,
-			},
+			where: { email: req.body.email },
 		});
 		if (!user) {
-			res.sendStatus(401);
+			console.log('No such user found:', req.body.email);
+			res.status(401).send('Wrong username and/or password');
+		} else if (!user.correctPassword(req.body.password)) {
+			console.log('Incorrect password for user:', req.body.email);
+			res.status(401).send('Wrong username and/or password');
 		} else {
-			// attach user id to the session
-			req.session.userId = user.id;
-			res.json(user);
+			req.login(user, (err) => (err ? next(err) : res.json(user)));
 		}
-	} catch (error) {
-		next(error);
+	} catch (err) {
+		next(err);
 	}
 });
 
