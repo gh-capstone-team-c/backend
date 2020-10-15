@@ -10,7 +10,7 @@ router.get('/me', async (req, res, next) => {
 			res.sendStatus(401);
 		} else {
 			const user = await User.findById(req.session.userId, {
-				include: [Dog],
+				include: [{ model: Dog }],
 			});
 			if (!user) {
 				res.sendStatus(401);
@@ -49,6 +49,7 @@ router.post('/login', async (req, res, next) => {
 	try {
 		const user = await User.findOne({
 			where: { email: req.body.email },
+			include: [Dog],
 		});
 		if (!user) {
 			console.log('No such user found:', req.body.email);
