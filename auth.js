@@ -1,7 +1,7 @@
 /** @format */
 
 const router = require('express').Router();
-const { User } = require('./db');
+const { User, Dog } = require('./db');
 
 //get user's info
 router.get('/me', async (req, res, next) => {
@@ -9,7 +9,9 @@ router.get('/me', async (req, res, next) => {
 		if (!req.session.userId) {
 			res.sendStatus(401);
 		} else {
-			const user = await User.findById(req.session.userId);
+			const user = await User.findById(req.session.userId, {
+				include: [Dog],
+			});
 			if (!user) {
 				res.sendStatus(401);
 			} else {
