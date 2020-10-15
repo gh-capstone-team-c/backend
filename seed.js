@@ -8,6 +8,11 @@ const seed = async () => {
 
 		// seed your database here!
 
+		const admin = await User.create({
+			email: 'admin',
+			password: 'admin',
+		});
+
 		const betsy = await User.create({
 			email: 'betsy@email.com',
 			password: '123',
@@ -23,6 +28,31 @@ const seed = async () => {
 			password: '789',
 		});
 
+		const john = await User.create({
+			email: 'john@email.com',
+			password: '222',
+		});
+
+		const allan = await User.create({
+			email: 'allan@email.com',
+			password: '111',
+		});
+
+		const alex = await User.create({
+			email: 'alex@email.com',
+			password: '333',
+		});
+
+		const orlando = await User.create({
+			email: 'orlando@email.com',
+			password: '555',
+		});
+
+		const elle = await User.create({
+			email: 'elle@email.com',
+			password: '222',
+		});
+
 		const kody = await Dog.create({
 			name: 'Kody-boo',
 		});
@@ -35,14 +65,49 @@ const seed = async () => {
 			name: 'Hobbes',
 		});
 
+		const jodi = await Dog.create({
+			name: 'Jodi',
+		});
+
+		const sparky = await Dog.create({
+			name: 'Sparky',
+		});
+
+		const rover = await Dog.create({
+			name: 'Rover',
+		});
+
+		const cupcake = await Dog.create({
+			name: 'Cupcake',
+		});
+
+		const buttercup = await Dog.create({
+			name: 'Buttercup',
+		});
+
 		//dog associated to user
 		await betsy.setDog(kody);
 		await marie.setDog(hobbes);
 		await leslie.setDog(arya);
+		await john.setDog(jodi)
+		await allan.setDog(sparky)
+		await alex.setDog(rover)
+		await orlando.setDog(cupcake)
+		await elle.setDog(buttercup)
 
 		//added followers
-		await leslie.addFollower(marie);
-		await marie.addFollower(betsy);
+
+		await leslie.addFollowing(marie)
+		await marie.addFollowing(leslie)
+		await leslie.addFollowing(alex)
+		await marie.addFollowing(alex)
+		await leslie.addFollowing(orlando)
+		await leslie.addFollowing(betsy)
+		await marie.addFollowing(betsy)
+		await marie.addFollowing(orlando)
+		await betsy.addFollowing(marie)
+		await betsy.addFollowing(leslie)
+
 		// console.log(Object.keys(betsy.__proto__));
 	} catch (err) {
 		console.log(err);

@@ -35,7 +35,10 @@ const User = db.define('user', {
 	imageUrl: {
 		type: Sequelize.TEXT,
 		defaultValue:
-			'https://www.aseanrisk.com/themes/ipe/images/default-person.svg',
+			'https://treasuresofinnocence.org/wp-content/uploads/2016/11/icon-user-default.png',
+	},
+	photos: {
+		type: Sequelize.ARRAY(Sequelize.TEXT),
 	},
 });
 
