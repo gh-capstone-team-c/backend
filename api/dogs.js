@@ -35,6 +35,8 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
 	try {
 		const dog = await Dog.findByPk(req.params.id);
+		console.log('req', req);
+		console.log(req.body);
 		const updatedDog = await dog.update(req.body);
 		res.json(updatedDog);
 	} catch (err) {
