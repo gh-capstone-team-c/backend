@@ -82,6 +82,7 @@ router.post('/signup', async (req, res, next) => {
 router.post('/me', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.user.id);
+		console.log("req", req)
 		const dog = await Dog.create(req.body);
 		await user.update(user.setDog(dog));
 		res.json(user);
