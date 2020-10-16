@@ -11,6 +11,7 @@ const seed = async () => {
 		const admin = await User.create({
 			email: 'admin',
 			password: 'admin',
+			isAdmin: true,
 		});
 
 		const betsy = await User.create({
@@ -89,24 +90,24 @@ const seed = async () => {
 		await betsy.setDog(kody);
 		await marie.setDog(hobbes);
 		await leslie.setDog(arya);
-		await john.setDog(jodi)
-		await allan.setDog(sparky)
-		await alex.setDog(rover)
-		await orlando.setDog(cupcake)
-		await elle.setDog(buttercup)
+		await john.setDog(jodi);
+		await allan.setDog(sparky);
+		await alex.setDog(rover);
+		await orlando.setDog(cupcake);
+		await elle.setDog(buttercup);
 
 		//added followers
 
-		await leslie.addFollowing(marie)
-		await marie.addFollowing(leslie)
-		await leslie.addFollowing(alex)
-		await marie.addFollowing(alex)
-		await leslie.addFollowing(orlando)
-		await leslie.addFollowing(betsy)
-		await marie.addFollowing(betsy)
-		await marie.addFollowing(orlando)
-		await betsy.addFollowing(marie)
-		await betsy.addFollowing(leslie)
+		await leslie.addFollowing(marie);
+		await marie.addFollowing(leslie);
+		await leslie.addFollowing(alex);
+		await marie.addFollowing(alex);
+		await leslie.addFollowing(orlando);
+		await leslie.addFollowing(betsy);
+		await marie.addFollowing(betsy);
+		await marie.addFollowing(orlando);
+		await betsy.addFollowing(marie);
+		await betsy.addFollowing(leslie);
 
 		// console.log(Object.keys(betsy.__proto__));
 	} catch (err) {

@@ -40,6 +40,11 @@ const User = db.define('user', {
 	photos: {
 		type: Sequelize.ARRAY(Sequelize.TEXT),
 	},
+	//determines whether user has admin privileges
+	isAdmin: {
+		type: Sequelize.BOOLEAN,
+		defaultValue: false,
+	},
 });
 
 module.exports = User;

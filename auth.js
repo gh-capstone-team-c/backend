@@ -44,7 +44,6 @@ router.get('/me', async (req, res, next) => {
 // 	}
 // });
 
-//not working
 router.post('/login', async (req, res, next) => {
 	try {
 		const user = await User.findOne({

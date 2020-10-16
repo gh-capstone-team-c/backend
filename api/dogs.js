@@ -2,12 +2,13 @@
 
 const router = require('express').Router();
 const { User, Dog } = require('../db');
+const isAdmin = require('./isAdminMiddleware');
 
 //need to write admin middleware to protect routes
 //and create admin...
 
 //get all dogs
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
 	try {
 		let dogs = await Dog.findAll({
 			include: [{ model: User }],
@@ -20,7 +21,7 @@ router.get('/', async (req, res, next) => {
 });
 
 //get one dog
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isAdmin, async (req, res, next) => {
 	try {
 		let dog = await Dog.findByPk(req.params.id, {
 			include: [{ model: User }],
@@ -32,7 +33,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 //update one dog
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdmin, async (req, res, next) => {
 	try {
 		const dog = await Dog.findByPk(req.params.id);
 		console.log('req', req);
@@ -45,7 +46,7 @@ router.put('/:id', async (req, res, next) => {
 });
 
 //create a dog
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
 	try {
 		const newDog = await Dog.create(req.body);
 		res.json(newDog);
@@ -55,7 +56,7 @@ router.post('/', async (req, res, next) => {
 });
 
 //delete a dog
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdmin, async (req, res, next) => {
 	try {
 		await Dog.destroy({
 			where: {
