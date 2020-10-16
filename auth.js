@@ -64,7 +64,7 @@ router.post('/login', async (req, res, next) => {
 	}
 });
 
-//signup, not working
+//signup
 router.post('/signup', async (req, res, next) => {
 	try {
 		const user = await User.create(req.body);
@@ -75,6 +75,18 @@ router.post('/signup', async (req, res, next) => {
 		} else {
 			next(err);
 		}
+	}
+});
+
+//associate a dog to a newly signed up user
+router.post('/me', async (req, res, next) => {
+	try {
+		const user = await User.findByPk(req.user.id);
+		const dog = await Dog.create(req.body);
+		await user.update(user.setDog(dog));
+		res.json(user);
+	} catch (err) {
+		next(err);
 	}
 });
 
