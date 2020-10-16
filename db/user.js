@@ -30,7 +30,7 @@ const User = db.define('user', {
 	},
 	points: {
 		type: Sequelize.INTEGER,
-		defaultValue: 0,
+		defaultValue: 1,
 	},
 	imageUrl: {
 		type: Sequelize.TEXT,
