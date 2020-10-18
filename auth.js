@@ -81,9 +81,35 @@ router.post('/signup', async (req, res, next) => {
 router.post('/me', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.user.id);
-		console.log('req', req);
+
 		const dog = await Dog.create(req.body);
 		await user.update(user.setDog(dog));
+		res.json(user);
+	} catch (err) {
+		next(err);
+	}
+});
+
+//follow someone
+router.put('/me/:id', async (req, res, next) => {
+	try {
+		const user = await User.findByPk(req.user.id);
+
+		const following = await User.findByPk(req.params.id);
+		await user.update(user.addFollowing(following));
+		res.json(user);
+	} catch (err) {
+		next(err);
+	}
+});
+
+//unfollow someone
+router.post('/me/:id', async (req, res, next) => {
+	try {
+		const user = await User.findByPk(req.user.id);
+
+		const following = await User.findByPk(req.params.id);
+		await user.update(user.removeFollowing(following));
 		res.json(user);
 	} catch (err) {
 		next(err);
