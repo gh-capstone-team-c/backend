@@ -4,9 +4,6 @@ const router = require('express').Router();
 const { User, Dog } = require('../db');
 const isAdmin = require('./isAdminMiddleware');
 
-//need to write admin middleware to protect routes
-//and create admin...
-
 //get all dogs
 router.get('/', isAdmin, async (req, res, next) => {
 	try {

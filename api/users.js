@@ -4,11 +4,8 @@ const router = require('express').Router();
 const { User, Dog } = require('../db');
 const isAdmin = require('./isAdminMiddleware');
 
-//need to write admin middleware to protect routes
-//and create admin...
-
 //get all users
-router.get('/', isAdmin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
 	try {
 		let users = await User.findAll({
 			include: [
@@ -16,7 +13,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 					model: Dog,
 				},
 			],
-			//attributes: ["id", "email", "points", "imageUrl"] <<so you don't send the passwords
+			attributes: ['id', 'email', 'points', 'imageUrl'],
 		});
 		res.json(users);
 	} catch (err) {
