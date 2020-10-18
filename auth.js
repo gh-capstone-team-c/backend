@@ -10,11 +10,7 @@ router.get('/me', async (req, res, next) => {
 			res.sendStatus(401);
 		} else {
 			const user = await User.findById(req.session.userId, {
-				include: [
-					{ model: Dog },
-					{ model: User, as: 'follower' },
-					{ model: User, as: 'following' },
-				],
+				include: [{ model: Dog }, 'following', 'follower'],
 			});
 			if (!user) {
 				res.sendStatus(401);
