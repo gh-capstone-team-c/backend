@@ -10,7 +10,17 @@ router.get('/me', async (req, res, next) => {
 			res.sendStatus(401);
 		} else {
 			const user = await User.findById(req.session.userId, {
-				include: [{ model: Dog }],
+				include: [
+					{ model: Dog },
+					{
+						model: User,
+						as: 'follower',
+					},
+					{
+						model: User,
+						as: 'following',
+					},
+				],
 			});
 			if (!user) {
 				res.sendStatus(401);
@@ -23,32 +33,21 @@ router.get('/me', async (req, res, next) => {
 	}
 });
 
-//login
-// router.put('/login', async (req, res, next) => {
-// 	try {
-// 		const user = await User.findOne({
-// 			where: {
-// 				email: req.body.email,
-// 				password: req.body.password,
-// 			},
-// 		});
-// 		if (!user) {
-// 			res.sendStatus(401);
-// 		} else {
-// 			// attach user id to the session
-// 			req.session.userId = user.id;
-// 			res.json(user);
-// 		}
-// 	} catch (error) {
-// 		next(error);
-// 	}
-// });
-
 router.post('/login', async (req, res, next) => {
 	try {
 		const user = await User.findOne({
 			where: { email: req.body.email },
-			include: [Dog],
+			include: [
+				{ model: Dog },
+				{
+					model: User,
+					as: 'follower',
+				},
+				{
+					model: User,
+					as: 'following',
+				},
+			],
 		});
 		if (!user) {
 			console.log('No such user found:', req.body.email);
@@ -82,7 +81,7 @@ router.post('/signup', async (req, res, next) => {
 router.post('/me', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.user.id);
-		console.log("req", req)
+		console.log('req', req);
 		const dog = await Dog.create(req.body);
 		await user.update(user.setDog(dog));
 		res.json(user);
