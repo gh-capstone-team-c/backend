@@ -56,7 +56,7 @@ const seed = async () => {
 
     const kody = await Dog.create({
       name: 'Kody-boo',
-      color: 'black-tan',
+      color: 'blackTan',
     });
 
     const arya = await Dog.create({
@@ -66,12 +66,12 @@ const seed = async () => {
 
     const hobbes = await Dog.create({
       name: 'Hobbes',
-      color: 'black-tan',
+      color: 'blackTan',
     });
 
     const jodi = await Dog.create({
       name: 'Jodi',
-      color: 'black-tan',
+      color: 'blackTan',
     });
 
     const sparky = await Dog.create({
@@ -81,7 +81,7 @@ const seed = async () => {
 
     const rover = await Dog.create({
       name: 'Rover',
-      color: 'black-tan',
+      color: 'blackTan',
     });
 
     const cupcake = await Dog.create({
