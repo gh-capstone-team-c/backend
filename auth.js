@@ -66,7 +66,25 @@ router.post('/login', async (req, res, next) => {
 	try {
 		const user = await User.findOne({
 			where: { email: req.body.email },
-			include: [Dog],
+			include: [
+				{ model: Dog },
+				{
+					model: User,
+					as: 'follower',
+					through: 'followers',
+					where: {
+						followedId: req.session.userId,
+					},
+				},
+				{
+					model: User,
+					as: 'following',
+					through: 'followers',
+					where: {
+						followerId: req.session.userId,
+					},
+				},
+			],
 		});
 		if (!user) {
 			console.log('No such user found:', req.body.email);
