@@ -15,6 +15,7 @@ router.get('/me', async (req, res, next) => {
 					{
 						model: User,
 						as: 'follower',
+						through: 'followers',
 						where: {
 							followedId: req.session.userId,
 						},
@@ -22,6 +23,7 @@ router.get('/me', async (req, res, next) => {
 					{
 						model: User,
 						as: 'following',
+						through: 'followers',
 						where: {
 							followerId: req.session.userId,
 						},
