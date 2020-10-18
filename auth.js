@@ -10,7 +10,11 @@ router.get('/me', async (req, res, next) => {
 			res.sendStatus(401);
 		} else {
 			const user = await User.findById(req.session.userId, {
-				include: [{ model: Dog }],
+				include: [
+					{ model: Dog },
+					{ model: User, as: 'follower' },
+					{ model: User, as: 'following' },
+				],
 			});
 			if (!user) {
 				res.sendStatus(401);
@@ -82,7 +86,7 @@ router.post('/signup', async (req, res, next) => {
 router.post('/me', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.user.id);
-		console.log("req", req)
+		console.log('req', req);
 		const dog = await Dog.create(req.body);
 		await user.update(user.setDog(dog));
 		res.json(user);
