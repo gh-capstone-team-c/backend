@@ -12,22 +12,14 @@ router.get('/me', async (req, res, next) => {
 			const user = await User.findById(req.session.userId, {
 				include: [
 					{ model: Dog },
-					// {
-					// 	model: User,
-					// 	as: 'follower',
-					// 	// through: 'followers',
-					// 	where: {
-					// 		followedId: req.session.userId,
-					// 	},
-					// },
-					// {
-					// 	model: User,
-					// 	as: 'following',
-					// 	// through: 'followers',
-					// 	where: {
-					// 		followerId: req.session.userId,
-					// 	},
-					// },
+					{
+						model: User,
+						as: 'follower',
+					},
+					{
+						model: User,
+						as: 'following',
+					},
 				],
 			});
 			if (!user) {
@@ -41,49 +33,20 @@ router.get('/me', async (req, res, next) => {
 	}
 });
 
-//login
-// router.put('/login', async (req, res, next) => {
-// 	try {
-// 		const user = await User.findOne({
-// 			where: {
-// 				email: req.body.email,
-// 				password: req.body.password,
-// 			},
-// 		});
-// 		if (!user) {
-// 			res.sendStatus(401);
-// 		} else {
-// 			// attach user id to the session
-// 			req.session.userId = user.id;
-// 			res.json(user);
-// 		}
-// 	} catch (error) {
-// 		next(error);
-// 	}
-// });
-
 router.post('/login', async (req, res, next) => {
 	try {
 		const user = await User.findOne({
 			where: { email: req.body.email },
 			include: [
 				{ model: Dog },
-				// {
-				// 	model: User,
-				// 	as: 'follower',
-				// 	// through: 'followers',
-				// 	where: {
-				// 		followedId: req.session.userId,
-				// 	},
-				// },
-				// {
-				// 	model: User,
-				// 	as: 'following',
-				// 	// through: 'followers',
-				// 	where: {
-				// 		followerId: req.session.userId,
-				// 	},
-				// },
+				{
+					model: User,
+					as: 'follower',
+				},
+				{
+					model: User,
+					as: 'following',
+				},
 			],
 		});
 		if (!user) {
