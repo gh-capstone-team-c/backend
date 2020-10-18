@@ -33,7 +33,7 @@ router.get('/:id', isAdmin, async (req, res, next) => {
 });
 
 //update one dog
-router.put('/:id', isAdmin, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
 	try {
 		const dog = await Dog.findByPk(req.params.id);
 		console.log('req', req);
