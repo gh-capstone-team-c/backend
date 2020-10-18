@@ -15,7 +15,7 @@ router.get('/me', async (req, res, next) => {
 					{
 						model: User,
 						as: 'follower',
-						through: 'followers',
+						// through: 'followers',
 						where: {
 							followedId: req.session.userId,
 						},
@@ -23,7 +23,7 @@ router.get('/me', async (req, res, next) => {
 					{
 						model: User,
 						as: 'following',
-						through: 'followers',
+						// through: 'followers',
 						where: {
 							followerId: req.session.userId,
 						},
@@ -71,7 +71,7 @@ router.post('/login', async (req, res, next) => {
 				{
 					model: User,
 					as: 'follower',
-					through: 'followers',
+					// through: 'followers',
 					where: {
 						followedId: req.session.userId,
 					},
@@ -79,7 +79,7 @@ router.post('/login', async (req, res, next) => {
 				{
 					model: User,
 					as: 'following',
-					through: 'followers',
+					// through: 'followers',
 					where: {
 						followerId: req.session.userId,
 					},
