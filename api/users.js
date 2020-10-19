@@ -6,7 +6,7 @@ const isAdmin = require('./isAdminMiddleware');
 const isUser = require('./isUserMiddleware');
 
 //get all users
-router.get('/', isUser, async (req, res, next) => {
+router.get('/',  async (req, res, next) => {
 	try {
 		let users = await User.findAll({
 			include: [
