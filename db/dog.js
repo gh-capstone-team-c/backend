@@ -25,7 +25,7 @@ const Dog = db.define('dog', {
       'https://i.pinimg.com/736x/ce/53/c5/ce53c5bcd350ba856e5c53c343376fb2.jpg',
   },
   color: {
-    type: Sequelize.ENUM('red', 'cream', 'black-tan'),
+    type: Sequelize.ENUM('red', 'cream', 'blackTan'),
     defaultValue: 'red',
   },
 });
