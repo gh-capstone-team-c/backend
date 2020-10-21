@@ -2,6 +2,7 @@
 
 const router = require('express').Router();
 const { User, Dog } = require('./db');
+const Sequelize = require('sequelize');
 
 //get user's info
 router.get('/me', async (req, res, next) => {
