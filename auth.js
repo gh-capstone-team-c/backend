@@ -131,9 +131,13 @@ router.put('/me', async (req, res, next) => {
 router.put('/me/photos', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.user.id);
-		user.photos.push(req.body.pic);
+		// user.photos.push(req.body.pic);
 		const updateUser = await user.update({
-			photos: user.photos,
+			photos: Sequelize.fn(
+				'array_append',
+				Sequelize.col('photos'),
+				req.body.pic
+			),
 		});
 		res.json(updateUser);
 	} catch (err) {
