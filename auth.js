@@ -131,7 +131,8 @@ router.put('/me', async (req, res, next) => {
 router.put('/me/photos', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.user.id);
-		const updateUser = await user.update(user.photos.push(req.body.pic));
+		user.photos.push(req.body.pic);
+		const updateUser = await user.update();
 		res.json(updateUser);
 	} catch (err) {
 		next(err);
