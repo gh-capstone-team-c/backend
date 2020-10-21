@@ -127,6 +127,28 @@ router.put('/me', async (req, res, next) => {
 	}
 });
 
+//add to a user's photos array
+router.put('/me/photos', async (req, res, next) => {
+	try {
+		const user = await User.findByPk(req.user.id);
+		const updateUser = await user.update(user.photos.push(req.body));
+		res.json(updateUser);
+	} catch (err) {
+		next(err);
+	}
+});
+
+//delete from a user's photos array
+// router.put('/me', async (req, res, next) => {
+// 	try {
+// 		const user = await User.findByPk(req.user.id);
+// 		const updateUser = await user.update(req.body);
+// 		res.json(updateUser);
+// 	} catch (err) {
+// 		next(err);
+// 	}
+// });
+
 //logout
 router.delete('/logout', (req, res) => {
 	// remove user id from session
