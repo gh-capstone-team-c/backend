@@ -43,13 +43,9 @@ router.get('/:id', isAdmin, async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.params.id);
-		// user.photos.push(req.body.pic);
+		user.photos.push(req.body.pic);
 		const updateUser = await user.update({
-			photos: sequelize.fn(
-				'array_append',
-				sequelize.col('photos'),
-				req.body.pic
-			),
+			photos: user.photos,
 		});
 		res.json(updateUser);
 	} catch (err) {
