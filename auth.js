@@ -40,6 +40,7 @@ router.post('/login', async (req, res, next) => {
 			where: { email: req.body.email },
 			include: [
 				{ model: Dog },
+				{ model: Photo },
 				{
 					model: User,
 					as: 'follower',
