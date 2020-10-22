@@ -37,10 +37,10 @@ const User = db.define('user', {
 		defaultValue:
 			'https://treasuresofinnocence.org/wp-content/uploads/2016/11/icon-user-default.png',
 	},
-	photos: {
-		type: Sequelize.ARRAY(Sequelize.TEXT),
-		defaultValue: ['https://i.pinimg.com/originals/b3/49/54/b34954a4243ee09850c73a085ac1810d.jpg', 'https://i.pinimg.com/564x/7f/03/ed/7f03ede8a2b6341ccc42f205c36479b7.jpg'],
-	},
+	// photos: {
+	// 	type: Sequelize.ARRAY(Sequelize.TEXT),
+	// 	defaultValue: ['https://i.pinimg.com/originals/b3/49/54/b34954a4243ee09850c73a085ac1810d.jpg', 'https://i.pinimg.com/564x/7f/03/ed/7f03ede8a2b6341ccc42f205c36479b7.jpg'],
+	// },
 	//determines whether user has admin privileges
 	isAdmin: {
 		type: Sequelize.BOOLEAN,

@@ -1,7 +1,7 @@
 /** @format */
 
 const router = require('express').Router();
-const { User, Dog } = require('./db');
+const { User, Dog, Photo } = require('./db');
 const Sequelize = require('sequelize');
 
 //get user's info
@@ -91,6 +91,32 @@ router.post('/me', async (req, res, next) => {
 	}
 });
 
+//associate a photo to a user
+router.post('/me/photo', async (req, res, next) => {
+	try {
+		const user = await User.findByPk(req.user.id);
+		const pic = await Photo.create(req.body);
+		await user.update(user.addPhoto(pic));
+		res.json(user);
+	} catch (err) {
+		next(err);
+	}
+});
+
+//get photos associated to a user
+router.get('/me/allphotos', async (req, res, next) => {
+	try {
+		const photos = await Photo.findAll({
+			where: {
+				userId: req.user.id,
+			},
+		});
+		res.json(photos);
+	} catch (err) {
+		next(err);
+	}
+});
+
 //follow someone
 router.put('/me/:id', async (req, res, next) => {
 	try {
@@ -127,31 +153,6 @@ router.put('/me', async (req, res, next) => {
 		next(err);
 	}
 });
-
-//add to a user's photos array
-router.put('/me/photos', async (req, res, next) => {
-	try {
-		const user = await User.findByPk(req.user.id);
-		user.photos.push(req.body.pic);
-		const updateUser = await user.update({
-			photos: user.photos,
-		});
-		res.json(updateUser);
-	} catch (err) {
-		next(err);
-	}
-});
-
-//delete from a user's photos array
-// router.put('/me', async (req, res, next) => {
-// 	try {
-// 		const user = await User.findByPk(req.user.id);
-// 		const updateUser = await user.update(req.body);
-// 		res.json(updateUser);
-// 	} catch (err) {
-// 		next(err);
-// 	}
-// });
 
 //logout
 router.delete('/logout', (req, res) => {
