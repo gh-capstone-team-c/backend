@@ -39,6 +39,7 @@ const User = db.define('user', {
 	},
 	photos: {
 		type: Sequelize.ARRAY(Sequelize.TEXT),
+		defaultValue: [],
 	},
 	//determines whether user has admin privileges
 	isAdmin: {
