@@ -4,9 +4,10 @@ const router = require('express').Router();
 const { User, Dog } = require('../db');
 const isAdmin = require('./isAdminMiddleware');
 const isUser = require('./isUserMiddleware');
+const Sequelize = require('sequelize');
 
 //get all users
-router.get('/',  async (req, res, next) => {
+router.get('/', async (req, res, next) => {
 	try {
 		let users = await User.findAll({
 			include: [
@@ -42,9 +43,13 @@ router.get('/:id', isAdmin, async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.params.id);
-		user.photos.push(req.body.pic);
+		// user.photos.push(req.body.pic);
 		const updateUser = await user.update({
-			photos: user.photos,
+			photos: sequelize.fn(
+				'array_append',
+				sequelize.col('photos'),
+				req.body.pic
+			),
 		});
 		res.json(updateUser);
 	} catch (err) {
