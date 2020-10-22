@@ -94,10 +94,7 @@ const seed = async () => {
 			color: 'cream',
 		});
 
-		const pic1 = await Photo.create({
-			path:
-				'https://i.pinimg.com/564x/7f/03/ed/7f03ede8a2b6341ccc42f205c36479b7.jpg',
-		});
+	
 
 		//dog associated to user
 		await betsy.setDog(kody);
