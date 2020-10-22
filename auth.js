@@ -105,7 +105,7 @@ router.post('/me/photo', async (req, res, next) => {
 		const user = await User.findByPk(req.user.id);
 		const pic = await Photo.create(req.body);
 		await user.update(user.addPhoto(pic));
-		res.json(user);
+		res.json(pic);
 	} catch (err) {
 		next(err);
 	}
