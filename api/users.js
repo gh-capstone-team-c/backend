@@ -39,11 +39,14 @@ router.get('/:id', isAdmin, async (req, res, next) => {
 });
 
 //update user--this would be for an admin to update a user's settings--we might not need this since i also wrote a route for the user to update their own settings
-router.put('/:id', isAdmin, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.params.id);
-		const updatedUser = await user.update(req.body);
-		res.json(updatedUser);
+		user.photos.push(req.body.pic);
+		const updateUser = await user.update({
+			photos: user.photos,
+		});
+		res.json(updateUser);
 	} catch (err) {
 		next(err);
 	}
