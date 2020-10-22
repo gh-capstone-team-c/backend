@@ -110,7 +110,7 @@ const seed = async () => {
 		await elle.setDog(buttercup);
 
 		//practice associating a photo to a user
-		await betsy.addPhoto(pic1);
+		// await betsy.addPhoto(pic1);
 
 		//added followers
 
