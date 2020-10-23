@@ -63,13 +63,13 @@ io.on('connect', (socket) => {
 	});
 
 	socket.on("addPoints", (pointsObj) => {
-		const user = await User.findByPk(req.user.id);
-		const updateUser = await user.update(pointsObj);
+		const user =  User.findByPk(req.user.id);
+		const updateUser = user.update(pointsObj);
 		io.emit("pointsUpdated", updateUser)
 	})
 
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
 	console.log(`listening on port ${port}`);
 });
