@@ -56,15 +56,18 @@ async () => {
 };
 
 io.on('connect', (socket) => {
-	console.log('hey there!');
+	console.log("hey we're connected!");
 
-	// socket.on('chat message', (msg) => {
-	// 	console.log('message: ' + msg);
-	// });
+	socket.on('disconnect', function(){
+		console.log('Disconnected - '+ socket.id);
+	});
 
-	// socket.on('disconnect', () => {
-	// 	console.log('disconnected');
-	// });
+	socket.on("addPoints", (pointsObj) => {
+		const user = await User.findByPk(req.user.id);
+		const updateUser = await user.update(req.body);
+		io.emit("pointsUpdated", updateUser)
+	})
+
 });
 
 server.listen(port, () => {
