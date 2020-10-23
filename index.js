@@ -55,16 +55,16 @@ async () => {
 	await db.sync({ force: true });
 };
 
-io.on('connection', (socket) => {
-	console.log('connected!');
+io.on('connect', (socket) => {
+	console.log('hey there!');
 
-	socket.on('chat message', (msg) => {
-		console.log('message: ' + msg);
-	});
+	// socket.on('chat message', (msg) => {
+	// 	console.log('message: ' + msg);
+	// });
 
-	socket.on('disconnect', () => {
-		console.log('disconnected');
-	});
+	// socket.on('disconnect', () => {
+	// 	console.log('disconnected');
+	// });
 });
 
 server.listen(port, () => {
