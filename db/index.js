@@ -12,7 +12,7 @@ User.hasOne(Dog);
 Photo.belongsTo(User);
 User.hasMany(Photo);
 
-//set it up like twitter where you can have followers and you can follow people
+//users have followers and they can follow others
 User.belongsToMany(User, {
 	as: 'follower',
 	through: 'followers',

@@ -1,10 +1,7 @@
 /** @format */
 
 const router = require('express').Router();
-const { User, Dog, Photo } = require('../db');
-const isAdmin = require('./isAdminMiddleware');
-const isUser = require('./isUserMiddleware');
-const Sequelize = require('sequelize');
+const { Photo } = require('../db');
 
 //get all photos
 router.get('/', async (req, res, next) => {
@@ -16,6 +13,7 @@ router.get('/', async (req, res, next) => {
 	}
 });
 
+//delete a photo
 router.delete('/:id', async (req, res, next) => {
 	try {
 		await Photo.destroy({
