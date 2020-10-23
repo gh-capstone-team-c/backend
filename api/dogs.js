@@ -2,7 +2,7 @@
 
 const router = require('express').Router();
 const { User, Dog } = require('../db');
-const isAdmin = require('./isAdminMiddleware');
+const isUser = require('./isUserMiddleware');
 
 //get all dogs
 router.get('/', isAdmin, async (req, res, next) => {
@@ -17,7 +17,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 });
 
 //update one dog
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isUser, async (req, res, next) => {
 	try {
 		const dog = await Dog.findByPk(req.params.id);
 		const updatedDog = await dog.update(req.body);
@@ -26,7 +26,5 @@ router.put('/:id', async (req, res, next) => {
 		next(err);
 	}
 });
-
-
 
 module.exports = router;
