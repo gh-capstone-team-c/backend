@@ -64,7 +64,7 @@ io.on('connect', (socket) => {
 
 	socket.on("addPoints", (pointsObj) => {
 		const user = await User.findByPk(req.user.id);
-		const updateUser = await user.update(req.body);
+		const updateUser = await user.update(pointsObj);
 		io.emit("pointsUpdated", updateUser)
 	})
 
