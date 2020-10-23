@@ -5,7 +5,7 @@ const { User, Dog } = require('../db');
 const isUser = require('./isUserMiddleware');
 
 //get all dogs
-router.get('/', isAdmin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
 	try {
 		let dogs = await Dog.findAll({
 			include: [{ model: User }],
@@ -17,7 +17,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 });
 
 //update one dog
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isUser, async (req, res, next) => {
 	try {
 		const dog = await Dog.findByPk(req.params.id);
 		const updatedDog = await dog.update(req.body);
