@@ -8,8 +8,8 @@ const passport = require('passport');
 const port = process.env.PORT || 3000;
 const db = require('./db/db');
 const User = require('./db/user');
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+const server = require('http').createServer(app);
+const io = require('socket.io').listen(server);
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id));
