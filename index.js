@@ -8,8 +8,6 @@ const passport = require('passport');
 const port = process.env.PORT || 3000;
 const db = require('./db/db');
 const User = require('./db/user');
-const server = require('http').createServer(app);
-const io = require('socket.io').listen(server);
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id));
@@ -55,21 +53,6 @@ async () => {
 	await db.sync({ force: true });
 };
 
-io.on('connect', (socket) => {
-	console.log("hey we're connected!");
-
-	socket.on('disconnect', function(){
-		console.log('Disconnected - '+ socket.id);
-	});
-
-	socket.on("addPoints", (pointsObj) => {
-		const user =  User.findByPk(req.user.id);
-		const updateUser = user.update(pointsObj);
-		io.emit("pointsUpdated", updateUser)
-	})
-
-});
-
-server.listen(port, () => {
+app.listen(port, () => {
 	console.log(`listening on port ${port}`);
 });
