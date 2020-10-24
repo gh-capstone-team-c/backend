@@ -8,6 +8,9 @@ const passport = require('passport');
 const port = process.env.PORT || 3000;
 const db = require('./db/db');
 const User = require('./db/user');
+//socket
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id));
@@ -53,6 +56,18 @@ async () => {
 	await db.sync({ force: true });
 };
 
-app.listen(port, () => {
+io.on('connection', (socket) => {
+	console.log('connected!');
+
+	socket.on('chat message', (msg) => {
+		console.log('message: ' + msg);
+	});
+
+	socket.on('disconnect', () => {
+		console.log('disconnected');
+	});
+});
+
+server.listen(port, () => {
 	console.log(`listening on port ${port}`);
 });
