@@ -63,6 +63,11 @@ io.on('connection', (socket) => {
 		console.log('message: ' + msg);
 	});
 
+	socket.on('updatePoints', () => {
+		console.log('backend: update points');
+		io.emit('pointsUpdated');
+	});
+
 	socket.on('disconnect', () => {
 		console.log('disconnected');
 	});
