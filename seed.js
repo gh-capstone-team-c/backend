@@ -17,41 +17,55 @@ const seed = async () => {
 		const betsy = await User.create({
 			email: 'betsy@email.com',
 			password: '123',
+			points: 5
 		});
 
 		const leslie = await User.create({
 			email: 'leslie@email.com',
 			password: '456',
+			points: 10
 		});
 
 		const marie = await User.create({
 			email: 'marie@email.com',
 			password: '789',
+			points: 15
 		});
 
 		const john = await User.create({
 			email: 'john@email.com',
 			password: '222',
+			points: 4
 		});
 
 		const allan = await User.create({
 			email: 'allan@email.com',
 			password: '111',
+			points: 8
 		});
 
 		const alex = await User.create({
 			email: 'alex@email.com',
 			password: '333',
+			points: 2
 		});
 
 		const orlando = await User.create({
 			email: 'orlando@email.com',
 			password: '555',
+			points: 20
+		});
+
+		const matt = await User.create({
+			email: 'matt@email.com',
+			password: '123',
+			points: 28
 		});
 
 		const elle = await User.create({
 			email: 'elle@email.com',
 			password: '222',
+			points: 9
 		});
 
 		const kody = await Dog.create({
@@ -94,7 +108,7 @@ const seed = async () => {
 			color: 'cream',
 		});
 
-	
+
 
 		//dog associated to user
 		await betsy.setDog(kody);
